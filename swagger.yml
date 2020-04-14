@@ -1,0 +1,40 @@
+swagger: "2.0"
+info:
+  description: idk
+  version: "19.11.0"
+  title: TravelStorms Main API Gateway
+consumes:
+  - "application/json"
+produces:
+  - "application/json"
+
+basePath: "/ts-geo"
+
+# Paths supported by the server application
+paths:
+  /route/{start_addr}/{end_addr}/{trans_id}:
+    get:
+      operationId: "route.getRoute"
+      tags:
+        - "Address"
+      summary: "The people data structure supported by the server applicatio"
+      description: "Read the list of people"
+      parameters:
+        - name: start_addr
+          in: path
+          description: Starting Address
+          type: string
+          required: True
+        - name: end_addr
+          in: path
+          description: Destination Address
+          type: string
+          required: True
+        - name: trans_id
+          in: path
+          description: Transaction ID for cross system debugging.
+          type: string
+          required: True
+      responses:
+        200:
+          description: "Successful read people list operation"
