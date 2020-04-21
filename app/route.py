@@ -72,7 +72,7 @@ def parseJsonResponse(jres,trans_id):
     data['distance'] = route['legs'][0]['distance']['value']
     data['duration'] = route['legs'][0]['duration']['value']
     data['polyline'] = route['overview_polyline']['points']
-    data['geo_spacers'] =  analyzeGeoCoordinates(decode_polyline(data['polyline']),data['distance'],data['duration'],trans_id)
+    data['geo_spacers'] = analyzeGeoCoordinates(decode_polyline(data['polyline']),data['distance'],data['duration'],trans_id)
 
     return data
 
@@ -123,6 +123,32 @@ def calculateDistance(latlong_a, latlong_b):
     return (d/1609.344) # should return miles
 
 def analyzeGeoCoordinates(geo_list,distance,duration,trans_id):
+    miles_traveled = 0.0
+    hours = round(duration/3600) # rounds to the nearest hour.
+    miles = round(distance/1609.344)
+    avg_miles = 60.0 # round(miles/hours)
+    new_geo_list = []
+    new_geo_list.append(geo_list[0])
+
+    i = 1
+    while i < len(geo_list):
+        offset = i - 1
+        miles_traveled += calculateDistance(geo_list[offset], geo_list[i])
+        if miles_traveled >= avg_miles:
+            new_geo_list.append(geo_list[i])
+            miles_traveled = 0
+        elif (i+1) == len(geo_list) and miles_traveled >= 35.0: # used to add the last coordinate
+            new_geo_list.append(geo_list[i])
+        elif (i+1) == len(geo_list) and miles_traveled < 35.0:
+            new_geo_list.pop()
+            new_geo_list.append(geo_list[i])
+
+        i += 1
+
+    return new_geo_list
+
+'''
+def analyzeGeoCoordinates(geo_list,distance,duration,trans_id):
     # used to analyze distance between coordinates
     # distances is in meters
     # duration is in seconds
@@ -159,3 +185,4 @@ def analyzeGeoCoordinates(geo_list,distance,duration,trans_id):
                 i += 1
 
     return new_geo_list
+'''
