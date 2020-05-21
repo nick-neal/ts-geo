@@ -55,6 +55,8 @@ start_addr | String | This is the starting address for your route.
 status | String | "OK" means the application was able to complete the request with no issues. any other response means an error occured, and the integrity of any data may be compromised.
 
 ```
+/route/Denver,+CO/Grand+Junction,+CO/abc123
+
 {
   "data": {
     "distance": 391649,
