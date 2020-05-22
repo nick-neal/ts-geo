@@ -3,14 +3,11 @@ import logging
 import requests
 from requests.exceptions import HTTPError
 import math
+from config.tsurls import GOOGLE_URL
+from config.tskeys import G_DIRECTIONS_API_KEY
 
 # initialize logger for app
 logger = logging.getLogger(__name__)
-
-# set constant vars
-GOOGLE_URL = 'https://maps.googleapis.com'
-# !!! SETUP IN CONFIG !!!
-G_DIRECTIONS_API_KEY = 'AIzaSyCjkHjeLVDf4h0fmwrS4miRp1Yd5PY4SYw'
 
 # main function used for API endpoint /ts-geo/route/{start_addr}/{end_addr}
 def getRoute(start_addr,end_addr,trans_id):

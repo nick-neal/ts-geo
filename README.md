@@ -4,6 +4,21 @@
 
 This is the micro service that handles calling google maps and returning relevant direction data, as well as picking out geo-points for gathering weather data.  
 
+## setting up API KEYS
+Due to security, you will need to create a new file: `app/config/tskeys.py`
+
+add the following to the new file:
+
+```
+from config.tsconfig import APP_ENV
+
+### API KEYS ###
+
+if APP_ENV == "DEV":
+    G_DIRECTIONS_API_KEY = '<Google Maps Directions API Key>'
+
+```
+
 ## Running in docker
 
 **You will need docker installed on your computer to run the code**
